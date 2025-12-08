@@ -77,22 +77,6 @@ export default {
 							{
 								type: "input_text",
 								text: [
-									"## Task Brief",
-									...taskDetails.brief,
-									"---",
-								].join("\n")
-							},
-							{
-								type: "input_text",
-								text: [
-									"## Intended Outcomes",
-									...taskDetails.outcomes,
-									"---",
-								].join("\n")
-							},
-							{
-								type: "input_text",
-								text: [
 									"You are a teacher's AI assistant at a further education college.",
 									"Your task is to provide feedback on student writing assignments.",
 									"Use the provided task brief and intended outcomes to guide your feedback.",
@@ -101,8 +85,32 @@ export default {
 									"Provide one improvement that is recognisable and formative.",
 									"Recognisable, as in something the student can identify in their work.",
 									"Formative, as in something that helps the student improve future work.",
-									"Limit your response to around 50 words, in British English.",
+									"Limit your response to around 40 words, in British English.",
 								].join(" "),
+							},
+							{
+								type: "input_text",
+								text: [
+									"## Task Brief",
+									"",
+									"The learner was provided with the following question or task brief:",
+									"",
+									...taskDetails.brief,
+									"",
+									"---",
+								].join("\n")
+							},
+							{
+								type: "input_text",
+								text: [
+									"## Intended Outcomes",
+									"",
+									"The learner should aim to meet the following outcomes in their submission:",
+									"",
+									...taskDetails.outcomes,
+									"",
+									"---",
+								].join("\n")
 							},
 						],
 					},
