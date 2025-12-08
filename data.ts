@@ -1,7 +1,7 @@
 export default {
     f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b: {
         brief: [
-            "Describe one opportunity for a teacher to integrate artificial intelligence (AI) tools into their teaching practice.",
+            "1. Describe one opportunity for a teacher to integrate artificial intelligence (AI) tools into their teaching practice.",
         ],
         outcomes: [
             "* Use the PEEL (Point, Evidence|Example|Explanation, Evidence|Example|Explanation, Link) structure.",
