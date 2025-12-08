@@ -4,7 +4,11 @@ export default {
             "1. Describe one opportunity for a teacher to integrate artificial intelligence (AI) tools into their teaching practice.",
         ],
         outcomes: [
-            "* Use the PEEL (Point, Evidence|Example|Explanation, Evidence|Example|Explanation, Link) structure.",
+            "* Use the PEEL structure.",
+            "  1. Point",
+            "  2. Explanation, Example or Evidence",
+            "  3. Explanation, Example or Evidence",
+            "  4. Link",
             "* Write a response of approximately 80-120 words.",
             "* Successfully join the two domains in the question.",
         ],
