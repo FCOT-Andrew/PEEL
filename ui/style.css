@@ -1,0 +1,37 @@
+html {
+    --background: #fff;
+    --alternate: #bbb;
+    --foreground: #000;
+    --emphasis: #603;
+}
+
+@media (prefers-color-scheme: dark) {
+    html {
+        --background: #000;
+        --alternate: #444;
+        --foreground: #fff;
+        --emphasis: #f9c;
+    }
+}
+
+body {
+    background: var(--alternate);
+    color: var(--foreground);
+}
+
+body > div {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+input, textarea {
+    background-color: var(--alternate);
+    color: var(--foreground);
+    border-width: 0.5em;
+    border-style: solid;
+    border-color: var(--alternate);
+}
+
+.emphasis {
+    color: var(--emphasis);
+}

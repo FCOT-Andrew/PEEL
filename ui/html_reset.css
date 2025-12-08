@@ -1,0 +1,13 @@
+html, body, * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    line-height: 1.44;
+    letter-spacing: 0.08em;
+    text-align: justify;
+}
+
+input[type="file"]::file-selector-button {
+    display: none;
+}

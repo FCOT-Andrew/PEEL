@@ -1,0 +1,19 @@
+body {
+    padding: 1em;
+}
+
+body > div {
+    display: flex;
+    flex-direction: column;
+    max-width: 30em;
+    gap: 1em;
+    padding: 1em;
+    margin: 0 auto;
+    border-radius: 1em;
+}
+
+body > div > form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}

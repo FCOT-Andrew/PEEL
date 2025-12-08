@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>PEEL Quest</title>
+		<link rel="stylesheet" href="/ui/html_reset.css">
+		<link rel="stylesheet" href="/ui/style.css">
+		<link rel="stylesheet" href="/ui/layout.css">
+		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<h1>PEEL Quest</h1>
+			<p>
+				This is a very early prototype of an AI feedback assistant.
+				You should only be here by the specific invitation of its creator.
+				If you don't know who that is, you shouldn't be here.
+			</p>
+			<form v-on:submit.prevent="submitAssignment">
+				<label for="class_code">Class Code:</label>
+				<input type="text" name="class_code" id="class_code" v-model="class_code" placeholder="a1-b2-c3">
+				<label for="submission">Your Assignment:</label>
+				<textarea name="submission" id="submission" v-model="submission" placeholder="Paste your assignment here."></textarea>
+				<input type="submit" value="Hand-in Assignment" v-bind:disabled="submission_stage === 1">
+			</form>
+			<p v-if="message" v-bind:class="{ emphasis: submission_stage === -1 }">{{ message }}</p>
+		</div>
+		<script>
+			Vue.createApp({
+				data() {
+					return {
+						class_code: null,
+						submission: null,
+						submission_stage: 0,
+						message: null,
+					}
+				},
+				methods: {
+					async submitAssignment() {
+						if (!this.class_code || !this.submission) {
+							this.submission_stage = -1;
+							this.message = "Please provide both a class code and an assignment file.";
+						} else {
+							this.submission_stage = 1;
+							this.message = null;
+							const body = new FormData();
+							body.append("class_code", this.class_code);
+							body.append("submission", this.submission);
+							try {
+								const response = await fetch("/api/submit_assignment", {
+									method: "POST",
+									body,
+								});
+								if (response.ok) {
+									const result = await response.json();
+									this.submission_stage = 2;
+									this.message = result.feedback;
+								} else {
+									throw new Error();
+								}
+							} catch (error) {
+								this.submission_stage = -1;
+								this.message = "There was an error submitting your assignment.";
+								console.error(error);
+							}
+						}
+					}
+				}
+			}).mount("#app")
+		</script>
+	</body>
+</html>
