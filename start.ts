@@ -91,25 +91,15 @@ export default {
 							{
 								type: "input_text",
 								text: [
-									"## Task Brief",
 									"",
 									"The learner was provided with the following question or task brief:",
 									"",
 									...taskDetails.brief,
 									"",
-									"---",
-								].join("\n")
-							},
-							{
-								type: "input_text",
-								text: [
-									"## Intended Outcomes",
-									"",
 									"The learner should aim to meet the following outcomes in their submission:",
 									"",
 									...taskDetails.outcomes,
 									"",
-									"---",
 								].join("\n")
 							},
 						],
