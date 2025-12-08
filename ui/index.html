@@ -19,12 +19,12 @@
 			</p>
 			<form v-on:submit.prevent="submitAssignment">
 				<label for="class_code">Class Code:</label>
-				<input type="text" name="class_code" id="class_code" v-model="class_code" placeholder="a1-b2-c3">
+				<input type="text" name="class_code" id="class_code" v-model="class_code" placeholder="a1-b2-c3" v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)">
 				<label for="submission">Your Assignment:</label>
-				<textarea name="submission" id="submission" v-model="submission" placeholder="Paste your assignment here."></textarea>
-				<input type="submit" value="Hand-in Assignment" v-bind:disabled="submission_stage === 1">
+				<textarea name="submission" id="submission" v-model="submission" placeholder="Paste your assignment here." v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)"></textarea>
+				<input type="submit" v-bind:value="stageDescription" v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)">
 			</form>
-			<p v-if="message" v-bind:class="{ emphasis: submission_stage === -1 }">{{ message }}</p>
+			<p v-if="message" v-bind:class="{ emphasis: submissionStage === 0 }">{{ message }}</p>
 		</div>
 		<script>
 			Vue.createApp({
@@ -32,17 +32,21 @@
 					return {
 						class_code: null,
 						submission: null,
-						submission_stage: 0,
+						submissionStage: 1,
 						message: null,
+						submitAnimation: null,
 					}
 				},
 				methods: {
 					async submitAssignment() {
 						if (!this.class_code || !this.submission) {
-							this.submission_stage = -1;
+							this.submissionStage = 0;
 							this.message = "Please provide both a class code and an assignment file.";
 						} else {
-							this.submission_stage = 1;
+							this.submitAnimation = setInterval(() => {
+								this.submissionStage = (this.submissionStage < 5) ? this.submissionStage + 1 : 2;
+							}, 600);
+							this.submissionStage = 2;
 							this.message = null;
 							const body = new FormData();
 							body.append("class_code", this.class_code);
@@ -52,21 +56,36 @@
 									method: "POST",
 									body,
 								});
+								clearInterval(this.submitAnimation);
 								if (response.ok) {
 									const result = await response.json();
-									this.submission_stage = 2;
+									this.submissionStage = 6;
 									this.message = result.feedback;
 								} else {
 									throw new Error();
 								}
 							} catch (error) {
-								this.submission_stage = -1;
+								this.submissionStage = 0;
 								this.message = "There was an error submitting your assignment.";
 								console.error(error);
 							}
 						}
 					}
-				}
+				},
+				computed: {
+					stageDescription() {
+						const descriptions = [
+							"Error. Try again?",
+							"Submit assignment.",
+							"Submitting.",
+							"Submitting..",
+							"Submitting...",
+							"Submitting..",
+							"Resubmit.",
+						];
+						return descriptions[this.submissionStage] || "Error. Try again?";
+					},
+				},
 			}).mount("#app")
 		</script>
 	</body>
