@@ -21,7 +21,14 @@
 				<label for="class_code">Class Code:</label>
 				<input type="text" name="class_code" id="class_code" v-model="class_code" placeholder="a1-b2-c3" v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)">
 				<label for="submission">Your Assignment:</label>
-				<textarea name="submission" id="submission" v-model="submission" placeholder="Paste your assignment here." v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)"></textarea>
+				<textarea
+					name="submission"
+					id="submission"
+					v-model="submission"
+					placeholder="Paste your assignment here."
+					v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)"
+				>
+				</textarea>
 				<input type="submit" v-bind:value="stageDescription" v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)">
 			</form>
 			<p v-if="message" v-bind:class="{ emphasis: submissionStage === 0 }">{{ message }}</p>
@@ -76,7 +83,7 @@
 					stageDescription() {
 						const descriptions = [
 							"Error. Try again?",
-							"Submit assignment.",
+							"Submit.",
 							"Submitting.",
 							"Submitting..",
 							"Submitting...",

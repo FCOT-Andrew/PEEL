@@ -11,3 +11,8 @@ html, body, * {
 input[type="file"]::file-selector-button {
     display: none;
 }
+
+textarea {
+    resize: none;
+    field-sizing: content;
+}
