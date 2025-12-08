@@ -1,5 +1,6 @@
 import { encodeHex } from "jsr:@std/encoding@^1/hex";
 import OpenAI from "jsr:@openai/openai@^6.10.0";
+import tasks from "./data.ts";
 
 const index_file = await Deno.open("./ui/index.html");
 if (index_file === null) {
@@ -9,11 +10,6 @@ if (index_file === null) {
 const apiKey = Deno.env.get("OPENAI_API_KEY");
 if (apiKey === undefined) {
 	throw new Error("Missing required API key.");
-}
-
-const configuredClassHash = Deno.env.get("CLASS_CODE_HASH");
-if (configuredClassHash === undefined) {
-	throw new Error("Missing required class code.");
 }
 
 async function checkAPIKey() {
@@ -66,7 +62,8 @@ export default {
 			const classCodeBuffer = new TextEncoder().encode(classCode);
 			const classCodeHashBuffer = await crypto.subtle.digest("SHA-256", classCodeBuffer);
 			const classCodeHash = encodeHex(classCodeHashBuffer);
-			if (classCodeHash !== configuredClassHash) {
+			const taskDetails = tasks[classCodeHash];
+			if (taskDetails === undefined) {
 				return new Response("Forbidden", { status: 403 });
 			}
 
@@ -81,6 +78,7 @@ export default {
 								type: "input_text",
 								text: [
 									"## Task Brief",
+									...taskDetails.brief,
 									"---",
 								].join("\n")
 							},
@@ -88,6 +86,7 @@ export default {
 								type: "input_text",
 								text: [
 									"## Intended Outcomes",
+									...taskDetails.outcomes,
 									"---",
 								].join("\n")
 							},
@@ -102,7 +101,7 @@ export default {
 									"Provide one improvement that is recognisable and formative.",
 									"Recognisable, as in something the student can identify in their work.",
 									"Formative, as in something that helps the student improve future work.",
-									"Limit your response to around 100 words, in British English.",
+									"Limit your response to around 50 words, in British English.",
 								].join(" "),
 							},
 						],
