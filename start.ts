@@ -2,11 +2,6 @@ import { encodeHex } from "jsr:@std/encoding@^1/hex";
 import OpenAI from "jsr:@openai/openai@^6.10.0";
 import tasks from "./data.ts";
 
-const index_file = await Deno.open("./ui/index.html");
-if (index_file === null) {
-	throw new Error("Missing required UI files.");
-}
-
 const apiKey = Deno.env.get("OPENAI_API_KEY");
 if (apiKey === undefined) {
 	throw new Error("Missing required API key.");
