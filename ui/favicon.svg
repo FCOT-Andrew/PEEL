@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="PEEL icon">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a3d62"/>
+      <stop offset="1" stop-color="#0b7285"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#bg)"/>
+  <!-- Minimal pen nib over circle -->
+  <circle cx="32" cy="32" r="14" fill="#0f2f44" opacity="0.35"/>
+  <path d="M32 18c1.4 2.4 4.6 7.8 6 12 0.2 0.4 0.2 0.9 0 1.3L32 46l-6-14.7c-0.2-0.4-0.2-0.9 0-1.3 1.4-4.2 4.6-9.6 6-12z" fill="#e9f6fb"/>
+  <circle cx="32" cy="32" r="2.4" fill="#0b3f4b"/>
+  <path d="M32 22v10" stroke="#0b3f4b" stroke-width="2" stroke-linecap="round"/>
+</svg>
