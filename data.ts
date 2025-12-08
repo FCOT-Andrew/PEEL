@@ -5,10 +5,8 @@ export default {
         ],
         outcomes: [
             "* Use the PEEL (Point, Evidence|Example|Explanation, Evidence|Example|Explanation, Link) structure.",
-            "* Make a point. For example, identify that LLMs are currently capable of automating tasks.",
-            "* Provide an example. For example, using a ChatGPT roleplay as a starter activity.",
-            "* Explain. For example, privacy considerations when integrating AI tools in education.",
-            "* Link it to the context. For example, how the chosen tool can enhance learner engagement.",
+            "* Write a response of approximately 80-120 words.",
+            "* Successfully join the two domains in the question.",
         ],
     }
 } as Record<string, { brief: string[]; outcomes: string[] }>;
