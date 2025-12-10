@@ -7,6 +7,11 @@ if (apiKey === undefined) {
 	throw new Error("Missing required API key.");
 }
 
+async function checkReadAccess() {
+	await Deno.open("./ui/index.html");
+}
+await checkReadAccess();
+
 async function checkAPIKey() {
 	const openAI = new OpenAI({ apiKey });
 	const modelList = await openAI.models.list();
