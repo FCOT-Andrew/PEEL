@@ -34,4 +34,5 @@ input, textarea {
 
 .emphasis {
     color: var(--emphasis);
+    font-weight: bold;
 }
