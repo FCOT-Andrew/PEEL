@@ -31,6 +31,8 @@ async function getTask(code: string) {
 export default {
 	async fetch(request: Request): Promise<Response> {
 		const path = new URL(request.url).pathname;
+		const segments = path.split("/");
+		console.log(segments);
 
 		if (
 			path === "/" &&
@@ -41,7 +43,7 @@ export default {
 		}
 
 		if (
-			path.startsWith("/ui/") &&
+			segments[1] === "ui" &&
 			request.method === "GET"
 		) {
 			const filePath = path.replace("/ui/", "./ui/");
@@ -54,10 +56,10 @@ export default {
 		}
 
 		if (
-			path.startsWith("/api/assignment/") &&
+			segments[1] === "api" &&
+			segments[2] === "assignment" &&
 			request.method === "GET"
 		) {
-			const segments = path.split("/");
 			const code = decodeURIComponent(segments[3]);
 			const taskDetails = await getTask(code);
 			if (taskDetails === undefined) {
@@ -71,8 +73,9 @@ export default {
 		}
 
 		if (
-			path.startsWith("/api/assignment/") &&
-			path.endsWith("/submission") &&
+			segments[1] === "api" &&
+			segments[2] === "assignment" &&
+			segments[4] === "submission" &&
 			request.method === "POST"
 		) {
 			const requestBody = await request.json();
@@ -81,7 +84,6 @@ export default {
 				return new Response("Bad Request", { status: 400 });
 			}
 
-			const segments = path.split("/");
 			const code = decodeURIComponent(segments[3]);
 			const taskDetails = await getTask(code);
 			if (taskDetails === undefined) {
