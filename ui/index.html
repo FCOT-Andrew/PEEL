@@ -8,90 +8,81 @@
 		<link rel="stylesheet" href="/ui/style.css">
 		<link rel="stylesheet" href="/ui/layout.css">
 		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
 	</head>
 	<body>
 		<div id="app">
-			<h1>PEEL Quest</h1>
-			<p>
+			<p v-if="!brief">
 				This is a very early prototype of an AI feedback assistant.
 				You should only be here by the specific invitation of its creator.
 				If you don't know who that is, you shouldn't be here.
 			</p>
-			<form v-on:submit.prevent="submitAssignment">
-				<label for="class_code">Class Code:</label>
-				<input type="text" name="class_code" id="class_code" v-model="class_code" placeholder="a1-b2-c3" v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)">
-				<label for="submission">Your Assignment:</label>
-				<textarea
-					name="submission"
-					id="submission"
-					v-model="submission"
-					placeholder="Paste your assignment here."
-					v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)"
-				>
-				</textarea>
-				<input type="submit" v-bind:value="stageDescription" v-bind:disabled="[2, 3, 4, 5].includes(submissionStage)">
+			<form v-on:submit.prevent="getAssignment" v-if="!brief">
+				<label for="assignment">Assignment Code:</label>
+				<input type="text" id="assignment" v-model="assignment" placeholder="a1-b2-c3"></input>
+				<input type="submit" value="Get Assignment"></input>
 			</form>
-			<p v-if="message" v-bind:class="{ emphasis: submissionStage === 0 }">{{ message }}</p>
+			<div v-if="brief" v-html="rendered_brief"></div>
+			<form v-on:submit.prevent="submitAssignment" v-if="brief">
+				<label for="submission">Your Submission:</label>
+				<textarea id="submission" v-model="submission" placeholder="Write your assignment here..."></textarea>
+				<input type="submit" value="Submit Assignment"></input>
+			</form>
+			<div v-if="feedback" v-html="rendered_feedback"></div>
+			<p class="emphasis" v-if="error">{{ error }}</p>
 		</div>
 		<script>
 			Vue.createApp({
 				data() {
 					return {
-						class_code: null,
+						assignment: null,
+						brief: null,
 						submission: null,
-						submissionStage: 1,
-						message: null,
-						submitAnimation: null,
+						error: null,
+						feedback: null,
 					}
 				},
 				methods: {
-					async submitAssignment() {
-						if (!this.class_code || !this.submission) {
-							this.submissionStage = 0;
-							this.message = "Please provide both a class code and an assignment file.";
+					async getAssignment() {
+						this.error = null
+						this.feedback = null
+						const response = await fetch(`/api/assignment/${this.assignment}`)
+						if (response.ok) {
+							const data = await response.json()
+							this.brief = data.brief
 						} else {
-							this.submitAnimation = setInterval(() => {
-								this.submissionStage = (this.submissionStage < 5) ? this.submissionStage + 1 : 2;
-							}, 600);
-							this.submissionStage = 2;
-							this.message = null;
-							const body = new FormData();
-							body.append("class_code", this.class_code);
-							body.append("submission", this.submission);
-							try {
-								const response = await fetch("/api/submit_assignment", {
-									method: "POST",
-									body,
-								});
-								if (response.ok) {
-									const result = await response.json();
-									this.submissionStage = 6;
-									this.message = result.feedback;
-								} else {
-									throw new Error();
-								}
-							} catch (error) {
-								this.submissionStage = 0;
-								this.message = "There was an error submitting your assignment.";
-								console.error(error);
-							}
-							clearInterval(this.submitAnimation);
+							this.error = `Error: ${response.status} ${response.statusText}`
 						}
-					}
+					},
+					async submitAssignment() {
+						this.error = null
+						this.feedback = null
+						const response = await fetch(`/api/assignment/${this.assignment}/submission`, {
+							method: "POST",
+							headers: { "Content-Type": "application/json" },
+							body: JSON.stringify({ submission: this.submission }),
+						})
+						if (response.ok) {
+							const data = await response.json()
+							this.feedback = data.feedback
+						} else {
+							this.error = `Error: ${response.status} ${response.statusText}`
+						}
+					},
 				},
 				computed: {
-					stageDescription() {
-						const descriptions = [
-							"Error. Try again?",
-							"Submit.",
-							"Submitting.",
-							"Submitting..",
-							"Submitting...",
-							"Submitting..",
-							"Resubmit.",
-						];
-						return descriptions[this.submissionStage] || "Error. Try again?";
+					rendered_brief() {
+						return marked.parse(this.brief.join("\n\n"))
 					},
+					rendered_feedback() {
+						return marked.parse(this.feedback)
+					},
+				},
+				mounted() {
+					this.assignment = new URLSearchParams(window.location.search).get("assignment")
+					if (this.assignment) {
+						this.getAssignment()
+					}
 				},
 			}).mount("#app")
 		</script>

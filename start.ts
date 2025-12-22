@@ -20,6 +20,14 @@ async function checkAPIKey() {
 }
 await checkAPIKey();
 
+async function getTask(code: string) {
+	const codeBuffer = new TextEncoder().encode(code);
+	const codeHashBuffer = await crypto.subtle.digest("SHA-256", codeBuffer);
+	const codeHash = encodeHex(codeHashBuffer);
+	const taskDetails = tasks[codeHash];
+	return taskDetails;
+}
+
 export default {
 	async fetch(request: Request): Promise<Response> {
 		const path = new URL(request.url).pathname;
@@ -46,23 +54,36 @@ export default {
 		}
 
 		if (
-			path === "/api/submit_assignment" &&
+			path.startsWith("/api/assignment/") &&
+			request.method === "GET"
+		) {
+			const segments = path.split("/");
+			const code = decodeURIComponent(segments[3]);
+			const taskDetails = await getTask(code);
+			if (taskDetails === undefined) {
+				return new Response("Forbidden", { status: 403 });
+			} else {
+				return new Response(
+					JSON.stringify({ brief: taskDetails.brief }),
+					{ status: 200, headers: { "Content-Type": "application/json" }},
+				);
+			}
+		}
+
+		if (
+			path.startsWith("/api/assignment/") &&
+			path.endsWith("/submission") &&
 			request.method === "POST"
 		) {
-			const formData = await request.formData();
-			const classCode = formData.get("class_code");
-			const submission = formData.get("submission");
-			if (
-				typeof classCode !== "string" ||
-				typeof submission !== "string"
-			) {
+			const requestBody = await request.json();
+			const submission = requestBody.submission;
+			if (typeof submission !== "string") {
 				return new Response("Bad Request", { status: 400 });
 			}
 
-			const classCodeBuffer = new TextEncoder().encode(classCode);
-			const classCodeHashBuffer = await crypto.subtle.digest("SHA-256", classCodeBuffer);
-			const classCodeHash = encodeHex(classCodeHashBuffer);
-			const taskDetails = tasks[classCodeHash];
+			const segments = path.split("/");
+			const code = decodeURIComponent(segments[3]);
+			const taskDetails = await getTask(code);
 			if (taskDetails === undefined) {
 				return new Response("Forbidden", { status: 403 });
 			}
@@ -92,11 +113,11 @@ export default {
 								type: "input_text",
 								text: [
 									"",
-									"The learner was provided with the following question or task brief:",
+									"The learner was provided with the following task brief:",
 									"",
 									...taskDetails.brief,
 									"",
-									"The learner should aim to meet the following outcomes in their submission:",
+									"The learner should meet the following outcomes in their submission:",
 									"",
 									...taskDetails.outcomes,
 									"",
