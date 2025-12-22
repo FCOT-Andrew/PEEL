@@ -25,7 +25,11 @@
 			<div v-if="brief" v-html="rendered_brief"></div>
 			<form v-on:submit.prevent="submitAssignment" v-if="brief">
 				<label for="submission">Your Submission:</label>
-				<textarea id="submission" v-model="submission" placeholder="Write your assignment here..."></textarea>
+				<textarea
+					id="submission"
+					v-model="submission"
+					placeholder="Write your assignment here..."
+				></textarea>
 				<input type="submit" value="Submit Assignment"></input>
 			</form>
 			<div v-if="feedback" v-html="rendered_feedback"></div>
