@@ -2,17 +2,13 @@ import { encodeHex } from "jsr:@std/encoding@^1/hex";
 import OpenAI from "jsr:@openai/openai@^6.10.0";
 import tasks from "./data.ts";
 
-const apiKey = Deno.env.get("OPENAI_API_KEY");
-if (apiKey === undefined) {
-	throw new Error("Missing required API key.");
-}
-
 async function checkReadAccess() {
 	await Deno.open("./ui/index.html");
 }
 await checkReadAccess();
 
 async function checkAPIKey() {
+	const apiKey = Deno.env.get("OPENAI_API_KEY");
 	const openAI = new OpenAI({ apiKey });
 	const modelList = await openAI.models.list();
 	const modelIDs = modelList.data.map(m => m.id);
@@ -89,6 +85,7 @@ export default {
 				return new Response("Not Found", { status: 404 });
 			}
 
+			const apiKey = Deno.env.get("OPENAI_API_KEY");
 			const openai = new OpenAI({ apiKey });
 			const openAIResponse = await openai.responses.create({
 				model: "gpt-5-mini",
