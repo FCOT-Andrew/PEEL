@@ -32,7 +32,6 @@ export default {
 	async fetch(request: Request): Promise<Response> {
 		const path = new URL(request.url).pathname;
 		const segments = path.split("/");
-		console.log(segments);
 
 		if (
 			path === "/" &&
@@ -101,16 +100,11 @@ export default {
 								type: "input_text",
 								text: [
 									taskDetails.persona,
-									"",
 									"The learner was provided with the following task brief:",
-									"",
 									taskDetails.brief,
-									"",
 									"The learner should aim for the following outcomes in their submission:",
-									"",
 									taskDetails.outcomes,
-									"",
-								].join("\n")
+								].join("\n\n")
 							},
 						],
 					},
