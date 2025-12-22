@@ -62,7 +62,7 @@ export default {
 			const code = decodeURIComponent(segments[3]);
 			const taskDetails = await getTask(code);
 			if (taskDetails === undefined) {
-				return new Response("Forbidden", { status: 403 });
+				return new Response("Not Found", { status: 404 });
 			} else {
 				return new Response(
 					JSON.stringify({ brief: taskDetails.brief }),
@@ -86,7 +86,7 @@ export default {
 			const code = decodeURIComponent(segments[3]);
 			const taskDetails = await getTask(code);
 			if (taskDetails === undefined) {
-				return new Response("Forbidden", { status: 403 });
+				return new Response("Not Found", { status: 404 });
 			}
 
 			const openai = new OpenAI({ apiKey });
