@@ -98,28 +98,15 @@ export default {
 							{
 								type: "input_text",
 								text: [
-									"You are a teacher's AI assistant at a further education college.",
-									"Your task is to provide feedback on student writing assignments.",
-									"Use the provided task brief and intended outcomes to guide your feedback.",
-									"Focus on being concise, polite and constructive with a Praise Sandwich.",
-									"Provide praise for the strongest features of the submission.",
-									"Provide one improvement that is recognisable and formative.",
-									"Recognisable, as in something the student can identify in their work.",
-									"Formative, as in something that helps the student improve future work.",
-									"Limit your response to around 40 words, in British English.",
-								].join(" "),
-							},
-							{
-								type: "input_text",
-								text: [
+									taskDetails.persona,
 									"",
 									"The learner was provided with the following task brief:",
 									"",
-									...taskDetails.brief,
+									taskDetails.brief,
 									"",
-									"The learner should meet the following outcomes in their submission:",
+									"The learner should aim for the following outcomes in their submission:",
 									"",
-									...taskDetails.outcomes,
+									taskDetails.outcomes,
 									"",
 								].join("\n")
 							},

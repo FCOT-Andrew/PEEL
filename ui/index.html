@@ -72,7 +72,7 @@
 				},
 				computed: {
 					rendered_brief() {
-						return marked.parse(this.brief.join("\n\n"))
+						return marked.parse(this.brief)
 					},
 					rendered_feedback() {
 						return marked.parse(this.feedback)
