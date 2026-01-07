@@ -2,11 +2,6 @@ import { encodeHex } from "jsr:@std/encoding@^1/hex";
 import OpenAI from "jsr:@openai/openai@^6.10.0";
 import tasks from "./data.ts";
 
-async function checkReadAccess() {
-	await Deno.open("./ui/index.html");
-}
-await checkReadAccess();
-
 async function checkAPIKey() {
 	const apiKey = Deno.env.get("OPENAI_API_KEY");
 	const openAI = new OpenAI({ apiKey });
@@ -33,21 +28,8 @@ export default {
 			path === "/" &&
 			request.method === "GET"
 		) {
-			const file = await Deno.open("./ui/index.html");
+			const file = await Deno.open("./static/index.html");
 			return new Response(file.readable);
-		}
-
-		if (
-			segments[1] === "ui" &&
-			request.method === "GET"
-		) {
-			const filePath = path.replace("/ui/", "./ui/");
-			try {
-				const file = await Deno.open(filePath);
-				return new Response(file.readable);
-			} catch {
-				return new Response("Not Found", { status: 404 });
-			}
 		}
 
 		if (
