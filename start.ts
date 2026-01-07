@@ -34,6 +34,19 @@ export default {
 		}
 
 		if (
+			segments[1] === "static" &&
+			request.method === "GET"
+		) {
+			const filePath = path.replace("/static/", "./static/");
+			try {
+				const file = await Deno.open(filePath);
+				return new Response(file.readable);
+			} catch {
+				return new Response("Not Found", { status: 404 });
+			}
+		}
+
+		if (
 			segments[1] === "api" &&
 			segments[2] === "assignment" &&
 			request.method === "GET"
