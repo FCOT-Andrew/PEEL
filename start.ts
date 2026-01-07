@@ -7,6 +7,7 @@ async function checkAPIKey() {
 	const openAI = new OpenAI({ apiKey });
 	const modelList = await openAI.models.list();
 	const modelIDs = modelList.data.map(m => m.id);
+	modelList.data.forEach(m => console.log(m.id));
 	console.log(`✅ ${modelIDs.length} available models.`);
 }
 await checkAPIKey();
