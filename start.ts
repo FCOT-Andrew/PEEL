@@ -84,7 +84,7 @@ export default {
 			const apiKey = Deno.env.get("OPENAI_API_KEY");
 			const openai = new OpenAI({ apiKey });
 			const openAIResponse = await openai.responses.create({
-				model: "gpt-5-mini",
+				model: Deno.env.get("OPENAI_MODEL") || "gpt-5-nano",
 				input: [
 					{
 						role: "system",
