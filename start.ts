@@ -83,6 +83,13 @@ export default {
 
 			const apiKey = Deno.env.get("OPENAI_API_KEY");
 			const openai = new OpenAI({ apiKey });
+			const full_brief = [
+				taskDetails.persona,
+				"The learner was provided with the following task brief:",
+				taskDetails.brief,
+				"The learner should aim for the following outcomes in their submission:",
+				taskDetails.outcomes,
+			].join("\n\n");
 			const openAIResponse = await openai.responses.create({
 				model: Deno.env.get("OPENAI_MODEL") || "gpt-5-nano",
 				input: [
@@ -91,13 +98,7 @@ export default {
 						content: [
 							{
 								type: "input_text",
-								text: [
-									taskDetails.persona,
-									"The learner was provided with the following task brief:",
-									taskDetails.brief,
-									"The learner should aim for the following outcomes in their submission:",
-									taskDetails.outcomes,
-								].join("\n\n")
+								text: full_brief,
 							},
 						],
 					},

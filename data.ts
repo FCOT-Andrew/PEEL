@@ -24,6 +24,8 @@ export default {
 			"  4. Link",
 			"* Write a response of approximately 80-120 words.",
 			"* Successfully join the two domains in the brief.",
+			"  * AI tools",
+			"  * Teaching practice",
 		].join("\n"),
 	}
 } as Record<string, { brief: string; persona: string; outcomes: string }>;
