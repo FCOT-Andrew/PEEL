@@ -20,7 +20,9 @@
 			<form v-on:submit.prevent="getAssignment" v-if="!brief">
 				<label for="assignment">Assignment Code:</label>
 				<input type="text" id="assignment" v-model="assignment" placeholder="a1-b2-c3"></input>
-				<input type="submit" value="Get Assignment"></input>
+				<button v-bind:disabled="active_requests.length > 0" type="submit">
+					{{ active_requests.length > 0 ? "Loading..." : "Load Assignment" }}
+				</button>
 			</form>
 			<div v-if="brief" v-html="rendered_brief"></div>
 			<form v-on:submit.prevent="submitAssignment" v-if="brief">
@@ -30,7 +32,9 @@
 					v-model="submission"
 					placeholder="Write your assignment here..."
 				></textarea>
-				<input type="submit" value="Submit Assignment"></input>
+				<button v-bind:disabled="active_requests.length > 0" type="submit">
+					{{ active_requests.length > 0 ? "Submitting..." : "Submit Assignment" }}
+				</button>
 			</form>
 			<div v-if="feedback" v-html="rendered_feedback"></div>
 			<p class="emphasis" v-if="error">{{ error }}</p>
@@ -44,34 +48,41 @@
 						submission: null,
 						error: null,
 						feedback: null,
+						active_requests: [],
 					}
 				},
 				methods: {
 					async getAssignment() {
 						this.error = null
 						this.feedback = null
-						const response = await fetch(`/api/assignment/${this.assignment}`)
+						const request = fetch(`/api/assignment/${this.assignment}`)
+						this.active_requests.push(request)
+						const response = await request
 						if (response.ok) {
 							const data = await response.json()
 							this.brief = data.brief
 						} else {
 							this.error = `Error: ${response.status} ${response.statusText}`
 						}
+						this.active_requests = this.active_requests.filter((r) => r !== request)
 					},
 					async submitAssignment() {
 						this.error = null
 						this.feedback = null
-						const response = await fetch(`/api/assignment/${this.assignment}/submission`, {
+						const request = fetch(`/api/assignment/${this.assignment}/submission`, {
 							method: "POST",
 							headers: { "Content-Type": "application/json" },
 							body: JSON.stringify({ submission: this.submission }),
 						})
+						this.active_requests.push(request)
+						const response = await request
 						if (response.ok) {
 							const data = await response.json()
 							this.feedback = data.feedback
 						} else {
 							this.error = `Error: ${response.status} ${response.statusText}`
 						}
+						this.active_requests = this.active_requests.filter((r) => r !== request)
 					},
 				},
 				computed: {

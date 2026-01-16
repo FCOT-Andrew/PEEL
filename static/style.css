@@ -24,7 +24,7 @@ body > div {
 	color: var(--foreground);
 }
 
-input, textarea {
+input, textarea, button {
 	background-color: var(--alternate);
 	color: var(--foreground);
 	border-width: 0.5em;
