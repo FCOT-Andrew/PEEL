@@ -10,6 +10,12 @@ async function checkAPIKey() {
 }
 await checkAPIKey();
 
+async function checkFileRead() {
+	await Deno.open("./static/index.html");
+	console.log(`✅ Able to read /index.html.`);
+}
+await checkFileRead();
+
 async function getTask(code: string) {
 	const codeBuffer = new TextEncoder().encode(code);
 	const codeHashBuffer = await crypto.subtle.digest("SHA-256", codeBuffer);
