@@ -8,13 +8,16 @@ async function checkAPIKey() {
 	const modelList = await openAI.models.list();
 	console.log(`✅ ${modelList.data.length} available models.`);
 }
-await checkAPIKey();
 
 async function checkFileRead() {
 	await Deno.open("./static/index.html");
 	console.log(`✅ Able to read /index.html.`);
 }
-await checkFileRead();
+
+await Promise.all([
+	checkFileRead(),
+	checkAPIKey(),
+])
 
 async function getTask(code: string) {
 	const codeBuffer = new TextEncoder().encode(code);
