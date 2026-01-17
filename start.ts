@@ -6,9 +6,7 @@ async function checkAPIKey() {
 	const apiKey = Deno.env.get("OPENAI_API_KEY");
 	const openAI = new OpenAI({ apiKey });
 	const modelList = await openAI.models.list();
-	const modelIDs = modelList.data.map(m => m.id);
-	modelList.data.forEach(m => console.log(m.id));
-	console.log(`✅ ${modelIDs.length} available models.`);
+	console.log(`✅ ${modelList.data.length} available models.`);
 }
 await checkAPIKey();
 
@@ -44,6 +42,21 @@ export default {
 			} catch {
 				return new Response("Not Found", { status: 404 });
 			}
+		}
+
+		if (
+			segments[1] === "api" &&
+			segments[2] === "health" &&
+			request.method === "GET"
+		) {
+			const apiKey = Deno.env.get("OPENAI_API_KEY");
+			const openai = new OpenAI({ apiKey });
+			const modelList = await openai.models.list();
+			const modelIDs = modelList.data.map(m => m.id);
+			return new Response(
+				JSON.stringify({ models: modelIDs }),
+				{ status: 200, headers: { "Content-Type": "application/json" }},
+			);
 		}
 
 		if (
