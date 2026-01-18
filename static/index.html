@@ -28,7 +28,7 @@
 					placeholder="a1-b2-c3"
 				></input>
 				<button v-bind:disabled="active_requests.length > 0" type="submit">
-					{{ active_requests.length > 0 ? "Loading..." : "Load Assignment" }}
+					{{ active_requests.length > 0 ? this.nonsense : "Load Assignment" }}
 				</button>
 			</form>
 			<form v-on:submit.prevent="submitAssignment" v-if="brief">
@@ -39,7 +39,7 @@
 					placeholder="Write your assignment here..."
 				></textarea>
 				<button v-bind:disabled="active_requests.length > 0" type="submit">
-					{{ active_requests.length > 0 ? "Submitting..." : "Submit Assignment" }}
+					{{ active_requests.length > 0 ? this.nonsense : "Submit Assignment" }}
 				</button>
 			</form>
 			<hr v-if="feedback"/>
@@ -65,10 +65,22 @@
 						submission: null,
 						error: null,
 						feedback: null,
+						nonsense: "Submitted...",
 						active_requests: [],
 					}
 				},
 				methods: {
+					updateNonsense() {
+						const nonsenses = [
+							"Processing...",
+							"Combobulating...",
+							"Computing...",
+							"Reticulating...",
+						]
+						const milliseconds = Date.now()
+						const intervals = Math.floor(milliseconds / 2100)
+						this.nonsense = nonsenses[intervals % nonsenses.length]
+					},
 					async getAssignment() {
 						this.error = null
 						this.feedback = null
@@ -111,6 +123,7 @@
 					},
 				},
 				mounted() {
+					setInterval(this.updateNonsense, 30)
 					this.assignment = new URLSearchParams(window.location.search).get("assignment")
 					if (this.assignment) {
 						this.getAssignment()
