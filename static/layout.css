@@ -17,3 +17,8 @@ body > div > form {
 	flex-direction: column;
 	gap: 0.5em;
 }
+
+.legal {
+	text-align: center;
+	font-size: 0.9em;
+}

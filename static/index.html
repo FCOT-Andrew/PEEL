@@ -38,6 +38,14 @@
 			</form>
 			<div v-if="feedback" v-html="rendered_feedback"></div>
 			<p class="emphasis" v-if="error">{{ error }}</p>
+			<p class="legal">
+				&copy; 2026
+			</p>
+			<p v-if="brief" class="legal">
+				Feedback provided by a Generative AI model.
+				Please review and verify all feedback carefully.
+				Feedback provided under the CC BY-NC 4.0 license.
+			</p>
 		</div>
 		<script>
 			Vue.createApp({
