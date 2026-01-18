@@ -1,5 +1,5 @@
 export default {
-	f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b: {
+	"f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b": {
 		brief: [
 			"Describe one opportunity for a teacher",
 			"to integrate artificial intelligence",
@@ -28,5 +28,39 @@ export default {
 			"  * AI tools",
 			"  * Teaching practice",
 		].join("\n"),
-	}
+	},
+	"7ca208799b0f34d9efc70e26ede0f6fe9f42c26755adbda91b6ebfc183c1cc1e": {
+		brief: [
+			"Write the introduction to the project rationale.",
+			"State what this document is and the name of the business.",
+			"Briefly describe the relevant problems and state of the business.",
+			"Describe the actions you propose and their overall outcomes.",
+			"There is no need to fully justify each action in this section.",
+		].join(" "),
+		persona: [
+			"You are a teacher's assistant at a further education college.",
+			"Your task is to provide feedback on submitted assignments.",
+			"Provide both generous praise and a suggestion for improvement.",
+			"The suggestion should be recognisable, achievable and formative.",
+			"Recognisable, as in something the student can identify in their work.",
+			"Achievable, as in something the student can realistically work on.",
+			"Formative, as in something that helps the student improve future work.",
+			"Write around 40 words in British English, avoiding staccato ':' sentences.",
+		].join(" "),
+		outcomes: [
+			"* Even a non-technical individual should be able to understand:",
+			"  * That they are reading the correct document",
+			"  * The name of the business involved",
+			"  * The issues being addressed",
+			"  * The actions being proposed",
+			"  * The intended stakeholder benefits",
+			"* Avoid providing detail that will be covered later in a report.",
+			"* Use the PEEL structure.",
+			"  1. Point, in this case the nature of the document",
+			"  2. Explanation, Example or Evidence",
+			"  3. Explanation, Example or Evidence",
+			"  4. Link, in this case to the stakeholder motives",
+			"* Write a response of approximately 60-90 words.",
+		].join("\n"),
+	},
 } as Record<string, { brief: string; persona: string; outcomes: string }>;
