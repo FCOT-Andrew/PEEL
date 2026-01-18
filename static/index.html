@@ -21,7 +21,12 @@
 			<hr />
 			<form v-on:submit.prevent="getAssignment" v-if="!brief">
 				<label for="assignment">Assignment Code:</label>
-				<input type="text" id="assignment" v-model="assignment" placeholder="a1-b2-c3"></input>
+				<input
+					type="text"
+					id="assignment"
+					v-model="assignment"
+					placeholder="a1-b2-c3"
+				></input>
 				<button v-bind:disabled="active_requests.length > 0" type="submit">
 					{{ active_requests.length > 0 ? "Loading..." : "Load Assignment" }}
 				</button>
