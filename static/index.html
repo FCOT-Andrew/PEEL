@@ -17,6 +17,8 @@
 				You should only be here by the specific invitation of its creator.
 				If you don't know who that is, you shouldn't be here.
 			</p>
+			<div v-if="brief" v-html="rendered_brief"></div>
+			<hr />
 			<form v-on:submit.prevent="getAssignment" v-if="!brief">
 				<label for="assignment">Assignment Code:</label>
 				<input type="text" id="assignment" v-model="assignment" placeholder="a1-b2-c3"></input>
@@ -24,7 +26,6 @@
 					{{ active_requests.length > 0 ? "Loading..." : "Load Assignment" }}
 				</button>
 			</form>
-			<div v-if="brief" v-html="rendered_brief"></div>
 			<form v-on:submit.prevent="submitAssignment" v-if="brief">
 				<label for="submission">Your Submission:</label>
 				<textarea
@@ -36,8 +37,11 @@
 					{{ active_requests.length > 0 ? "Submitting..." : "Submit Assignment" }}
 				</button>
 			</form>
+			<hr v-if="feedback"/>
 			<div v-if="feedback" v-html="rendered_feedback"></div>
+			<hr v-if="error"/>
 			<p class="emphasis" v-if="error">{{ error }}</p>
+			<hr />
 			<p class="legal">
 				&copy; 2026
 			</p>
