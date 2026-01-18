@@ -7,9 +7,9 @@ html {
 
 @media (prefers-color-scheme: dark) {
 	html {
-		--background: #000;
-		--alternate: #444;
-		--foreground: #fff;
+		--background: #110;
+		--alternate: #333;
+		--foreground: #ffe;
 		--emphasis: #f9c;
 	}
 }
