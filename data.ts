@@ -31,12 +31,11 @@ export default {
 	},
 	"7ca208799b0f34d9efc70e26ede0f6fe9f42c26755adbda91b6ebfc183c1cc1e": {
 		brief: [
-			"Write the introduction to the project rationale.",
+			"Write the introduction paragraph to the project rationale we have been working on.",
 			"First, state what the document is and the name of the business.",
-			"Briefly describe the relevant problems and state of the business.",
-			"Finally, outline the actions you propose and the overall outcome.",
-			"There is no need to fully justify each action in this section.",
-			"There is also no need to title this paragraph."
+			"Briefly describe the relevant issues.",
+			"Summarise the actions you propose.",
+			"Finally, outline the intended stakeholder benefits.",
 		].join(" "),
 		persona: [
 			"You are a teacher's assistant at a further education college.",
@@ -60,8 +59,8 @@ export default {
 			"  2. An Explanation of the current problems",
 			"  3. An Explanation of the intended actions",
 			"  4. Link, in this case to the stakeholder motives",
-			"* The learner should not state that this is the introduction",
-			"* Avoid providing detail that will be covered later in a report",
+			"* Should not state that this is an introduction, this is implied",
+			"* Avoid providing detail that will be covered later in the report",
 			"* Write a response of approximately 60-90 words",
 		].join("\n"),
 	},
