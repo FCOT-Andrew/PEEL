@@ -46,7 +46,7 @@ export default {
 			"Recognisable, as in something the student can identify in their work.",
 			"Achievable, as in something the student can realistically work on.",
 			"Formative, as in something that helps the student improve future work.",
-			"Write around 40 words in British English, avoiding staccato ':' sentences.",
+			"Write around 30 words in British English, avoiding staccato ':' sentences.",
 		].join(" "),
 		outcomes: [
 			"* A non-technical individual should be able to understand:",
