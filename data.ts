@@ -32,9 +32,9 @@ export default {
 	"7ca208799b0f34d9efc70e26ede0f6fe9f42c26755adbda91b6ebfc183c1cc1e": {
 		brief: [
 			"Write the introduction to the project rationale.",
-			"State what this document is and the name of the business.",
+			"First, state what this document is and the name of the business.",
 			"Briefly describe the relevant problems and state of the business.",
-			"Describe the actions you propose and their overall outcomes.",
+			"Finally, outline the actions you propose and the overall outcome.",
 			"There is no need to fully justify each action in this section.",
 		].join(" "),
 		persona: [
@@ -48,19 +48,19 @@ export default {
 			"Write around 40 words in British English, avoiding staccato ':' sentences.",
 		].join(" "),
 		outcomes: [
-			"* Even a non-technical individual should be able to understand:",
+			"* A non-technical individual should be able to understand:",
 			"  * That they are reading the correct document",
 			"  * The name of the business involved",
 			"  * The issues being addressed",
 			"  * The actions being proposed",
 			"  * The intended stakeholder benefits",
-			"* Avoid providing detail that will be covered later in a report.",
-			"* Use the PEEL structure.",
+			"* Avoid providing detail that will be covered later in a report",
+			"* Use the PEEL structure:",
 			"  1. Point, in this case the nature of the document",
 			"  2. Explanation, Example or Evidence",
 			"  3. Explanation, Example or Evidence",
 			"  4. Link, in this case to the stakeholder motives",
-			"* Write a response of approximately 60-90 words.",
+			"* Write a response of approximately 60-90 words",
 		].join("\n"),
 	},
 } as Record<string, { brief: string; persona: string; outcomes: string }>;
