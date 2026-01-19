@@ -32,10 +32,11 @@ export default {
 	"7ca208799b0f34d9efc70e26ede0f6fe9f42c26755adbda91b6ebfc183c1cc1e": {
 		brief: [
 			"Write the introduction to the project rationale.",
-			"First, state what this document is and the name of the business.",
+			"First, state what the document is and the name of the business.",
 			"Briefly describe the relevant problems and state of the business.",
 			"Finally, outline the actions you propose and the overall outcome.",
 			"There is no need to fully justify each action in this section.",
+			"There is also no need to title this paragraph."
 		].join(" "),
 		persona: [
 			"You are a teacher's assistant at a further education college.",
@@ -54,12 +55,13 @@ export default {
 			"  * The issues being addressed",
 			"  * The actions being proposed",
 			"  * The intended stakeholder benefits",
-			"* Avoid providing detail that will be covered later in a report",
 			"* Use the PEEL structure:",
 			"  1. Point, in this case the nature of the document",
 			"  2. Explanation, Example or Evidence",
 			"  3. Explanation, Example or Evidence",
 			"  4. Link, in this case to the stakeholder motives",
+			"* The learner should not state that this is the introduction",
+			"* Avoid providing detail that will be covered later in a report",
 			"* Write a response of approximately 60-90 words",
 		].join("\n"),
 	},
