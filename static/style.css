@@ -1,6 +1,6 @@
 html {
 	--background: #fff;
-	--alternate: #ccc;
+	--alternate: #ddd;
 	--foreground: #000;
 	--emphasis: #603;
 }
@@ -8,7 +8,7 @@ html {
 @media (prefers-color-scheme: dark) {
 	html {
 		--background: #110;
-		--alternate: #333;
+		--alternate: #222;
 		--foreground: #ffe;
 		--emphasis: #f9c;
 	}
