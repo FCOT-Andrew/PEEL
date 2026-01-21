@@ -55,21 +55,6 @@ export default {
 
 		if (
 			segments[1] === "api" &&
-			segments[2] === "health" &&
-			request.method === "GET"
-		) {
-			const apiKey = Deno.env.get("OPENAI_API_KEY");
-			const openai = new OpenAI({ apiKey });
-			const modelList = await openai.models.list();
-			const modelIDs = modelList.data.map(m => m.id);
-			return new Response(
-				JSON.stringify({ models: modelIDs }),
-				{ status: 200, headers: { "Content-Type": "application/json" }},
-			);
-		}
-
-		if (
-			segments[1] === "api" &&
 			segments[2] === "assignment" &&
 			request.method === "GET"
 		) {
