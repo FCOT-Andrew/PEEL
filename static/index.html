@@ -60,11 +60,11 @@
 			Vue.createApp({
 				data() {
 					return {
-						assignment: null,
-						brief: null,
-						submission: null,
-						error: null,
-						feedback: null,
+						assignment: "",
+						brief: "",
+						submission: "",
+						error: "",
+						feedback: "",
 						nonsense: "Submitted...",
 						active_requests: [],
 					}
@@ -86,8 +86,8 @@
 						this.nonsense = nonsenses[intervals % nonsenses.length]
 					},
 					async getAssignment() {
-						this.error = null
-						this.feedback = null
+						this.error = ""
+						this.feedback = ""
 						const request = fetch(`/api/assignment/${this.assignment}`)
 						this.active_requests.push(request)
 						const response = await request
@@ -100,8 +100,8 @@
 						this.active_requests = this.active_requests.filter((r) => r !== request)
 					},
 					async submitAssignment() {
-						this.error = null
-						this.feedback = null
+						this.error = ""
+						this.feedback = ""
 						const request = fetch(`/api/assignment/${this.assignment}/submission`, {
 							method: "POST",
 							headers: { "Content-Type": "application/json" },
