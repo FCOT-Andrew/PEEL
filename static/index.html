@@ -12,25 +12,13 @@
 	</head>
 	<body>
 		<div id="app">
-			<p v-if="!brief">
+			<div v-if="brief" v-html="rendered_brief"></div>
+			<p v-else>
 				This is a very early prototype of an AI feedback assistant.
 				You should only be here by the specific invitation of its creator.
 				If you don't know who that is, you shouldn't be here.
 			</p>
-			<div v-if="brief" v-html="rendered_brief"></div>
 			<hr />
-			<form v-on:submit.prevent="getAssignment" v-if="!brief">
-				<label for="assignment">Assignment Code:</label>
-				<input
-					type="text"
-					id="assignment"
-					v-model="assignment"
-					placeholder="a1-b2-c3"
-				></input>
-				<button v-bind:disabled="active_requests.length > 0" type="submit">
-					{{ active_requests.length > 0 ? this.nonsense : "Load Assignment" }}
-				</button>
-			</form>
 			<form v-on:submit.prevent="submitAssignment" v-if="brief">
 				<label for="submission">Your Submission:</label>
 				<textarea
@@ -40,6 +28,18 @@
 				></textarea>
 				<button v-bind:disabled="active_requests.length > 0" type="submit">
 					{{ active_requests.length > 0 ? this.nonsense : "Submit Assignment" }}
+				</button>
+			</form>
+			<form v-on:submit.prevent="getAssignment" v-else>
+				<label for="assignment">Assignment Code:</label>
+				<input
+					type="text"
+					id="assignment"
+					v-model="assignment"
+					placeholder="a1-b2-c3"
+				></input>
+				<button v-bind:disabled="active_requests.length > 0" type="submit">
+					{{ active_requests.length > 0 ? this.nonsense : "Load Assignment" }}
 				</button>
 			</form>
 			<hr v-if="feedback"/>
