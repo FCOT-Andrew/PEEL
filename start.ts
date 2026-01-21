@@ -93,7 +93,10 @@ export default {
 		) {
 			const requestBody = await request.json();
 			const submission = requestBody.submission;
-			if (typeof submission !== "string") {
+			if (
+				typeof submission !== "string"
+				|| submission === ""
+			) {
 				return new Response("Bad Request", { status: 400 });
 			}
 
