@@ -92,8 +92,7 @@
 						this.active_requests.push(request)
 						const response = await request
 						if (response.ok) {
-							const data = await response.json()
-							this.brief = data.brief
+							this.brief = await response.text()
 						} else {
 							this.error = `Error: ${response.status} ${response.statusText}`
 						}
@@ -104,14 +103,13 @@
 						this.feedback = ""
 						const request = fetch(`/api/assignment/${this.assignment}/submission`, {
 							method: "POST",
-							headers: { "Content-Type": "application/json" },
-							body: JSON.stringify({ submission: this.submission }),
+							headers: { "Content-Type": "text/markdown" },
+							body: this.submission,
 						})
 						this.active_requests.push(request)
 						const response = await request
 						if (response.ok) {
-							const data = await response.json()
-							this.feedback = data.feedback
+							this.feedback = await response.text()
 						} else {
 							this.error = `Error: ${response.status} ${response.statusText}`
 						}

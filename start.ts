@@ -79,8 +79,8 @@ export default {
 				return new Response("Not Found", { status: 404 });
 			} else {
 				return new Response(
-					JSON.stringify({ brief: taskDetails.brief }),
-					{ status: 200, headers: { "Content-Type": "application/json" }},
+					taskDetails.brief,
+					{ status: 200, headers: { "Content-Type": "text/markdown" }},
 				);
 			}
 		}
@@ -91,8 +91,7 @@ export default {
 			segments[4] === "submission" &&
 			request.method === "POST"
 		) {
-			const requestBody = await request.json();
-			const submission = requestBody.submission;
+			const submission = await request.text();
 			if (
 				typeof submission !== "string"
 				|| submission === ""
@@ -139,8 +138,8 @@ export default {
 				],
 			});
 			return new Response(
-				JSON.stringify({ feedback: openAIResponse.output_text }),
-				{ status: 200, headers: { "Content-Type": "application/json" }},
+				openAIResponse.output_text,
+				{ status: 200, headers: { "Content-Type": "text/markdown" }},
 			);
 		}
 		
