@@ -65,7 +65,7 @@ export default {
 			} else {
 				return new Response(
 					taskDetails.brief,
-					{ status: 200, headers: { "Content-Type": "text/markdown" }},
+					{ headers: { "Content-Type": "text/markdown" }},
 				);
 			}
 		}
@@ -77,10 +77,7 @@ export default {
 			request.method === "POST"
 		) {
 			const submission = await request.text();
-			if (
-				typeof submission !== "string"
-				|| submission === ""
-			) {
+			if (submission.trim() === "") {
 				return new Response("Bad Request", { status: 400 });
 			}
 
@@ -124,7 +121,7 @@ export default {
 			});
 			return new Response(
 				openAIResponse.output_text,
-				{ status: 200, headers: { "Content-Type": "text/markdown" }},
+				{ headers: { "Content-Type": "text/markdown" }},
 			);
 		}
 		
