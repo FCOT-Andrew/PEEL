@@ -76,15 +76,15 @@ export default {
 			segments[4] === "submission" &&
 			request.method === "POST"
 		) {
-			const submission = await request.text();
-			if (submission.trim() === "") {
-				return new Response("Bad Request", { status: 400 });
-			}
-
 			const code = decodeURIComponent(segments[3]);
 			const taskDetails = await getTask(code);
 			if (taskDetails === undefined) {
 				return new Response("Not Found", { status: 404 });
+			}
+
+			const submission = await request.text();
+			if (submission.trim() === "") {
+				return new Response("Bad Request", { status: 400 });
 			}
 
 			const apiKey = Deno.env.get("OPENAI_API_KEY");
