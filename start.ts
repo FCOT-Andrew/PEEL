@@ -116,7 +116,7 @@ export default {
 				taskDetails.outcomes,
 			].join("\n\n");
 			const openAIResponse = await openai.responses.create({
-				model: Deno.env.get("OPENAI_MODEL") || "gpt-5-mini",
+				model: taskDetails.model,
 				input: [
 					{
 						role: "system",

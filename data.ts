@@ -28,6 +28,7 @@ export default {
 			"  * AI tools",
 			"  * Teaching practice",
 		].join("\n"),
+		model: "gpt-5-mini",
 	},
 	"7ca208799b0f34d9efc70e26ede0f6fe9f42c26755adbda91b6ebfc183c1cc1e": {
 		brief: [
@@ -63,5 +64,9 @@ export default {
 			"* Avoid providing detail that will be covered later in the report",
 			"* Write a response of approximately 60-90 words",
 		].join("\n"),
+		model: "gpt-5-mini",
 	},
-} as Record<string, { brief: string; persona: string; outcomes: string }>;
+} as Record<
+	string,
+	{ brief: string; persona: string; outcomes: string; model: string }
+>;
