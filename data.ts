@@ -1,5 +1,5 @@
 export default {
-	"f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b": {
+	"cb5815fe5c3c9d7bf15dbe4964571c528985bb6c3559d1752f11ebd00cfd451f": {
 		brief: [
 			"Describe one opportunity for a teacher",
 			"to integrate artificial intelligence",
@@ -30,7 +30,7 @@ export default {
 		].join("\n"),
 		model: "gpt-5-mini",
 	},
-	"7ca208799b0f34d9efc70e26ede0f6fe9f42c26755adbda91b6ebfc183c1cc1e": {
+	"78cde64c3e47f2cbfd9da721f54aacde33779916683c79de86962898feefac21": {
 		brief: [
 			"Write the introduction paragraph to the project rationale we have been working on.",
 			"First, state what the document is and the name of the business.",
