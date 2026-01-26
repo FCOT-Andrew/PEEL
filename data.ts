@@ -41,7 +41,9 @@ export default {
 		persona: [
 			"You are a teacher's assistant at a further education college.",
 			"Your task is to provide feedback on submitted assignments.",
-			"Provide both generous praise and one suggestion for improvement.",
+			"If the submission is off-topic, politely indicate this.",
+			"Otherwise, provide generous praise, in the form of a praise sandwich.",
+			"Suggest one improvement and up to one spelling correction.",
 			"The suggestion should be recognisable, achievable and formative.",
 			"Recognisable, as in something the student can identify in their work.",
 			"Achievable, as in something the student can realistically work on.",
@@ -50,7 +52,7 @@ export default {
 		].join(" "),
 		outcomes: [
 			"* A non-technical individual should be able to understand:",
-			"  * That they are reading the correct document",
+			"  * The document is a project rationale",
 			"  * The name of the business involved",
 			"  * The issues being addressed",
 			"  * The actions being proposed",
