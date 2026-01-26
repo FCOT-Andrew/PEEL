@@ -89,25 +89,16 @@ export default {
 
 			const apiKey = Deno.env.get("OPENAI_API_KEY");
 			const openai = new OpenAI({ apiKey });
-			const full_brief = [
-				taskDetails.persona,
-				"Task brief provided to students:",
-				taskDetails.brief,
-				"Expected outcomes:",
-				taskDetails.outcomes,
-			].join("\n\n");
 			const openAIResponse = await openai.responses.create({
 				model: taskDetails.model,
+				instructions: [
+					taskDetails.persona,
+					"Task brief provided to students:",
+					taskDetails.brief,
+					"Expected outcomes:",
+					taskDetails.outcomes,
+				].join("\n\n"),
 				input: [
-					{
-						role: "system",
-						content: [
-							{
-								type: "input_text",
-								text: full_brief,
-							},
-						],
-					},
 					{
 						role: "user",
 						content: [
