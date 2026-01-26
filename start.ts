@@ -98,17 +98,7 @@ export default {
 					"Expected outcomes:",
 					taskDetails.outcomes,
 				].join("\n\n"),
-				input: [
-					{
-						role: "user",
-						content: [
-							{
-								type: "input_text",
-								text: submission,
-							},
-						],
-					},
-				],
+				input: submission,
 				stream: true,
 			});
 			return new Response(
