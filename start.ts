@@ -91,9 +91,9 @@ export default {
 			const openai = new OpenAI({ apiKey });
 			const full_brief = [
 				taskDetails.persona,
-				"The learner was provided with the following task brief:",
+				"Task brief provided to students:",
 				taskDetails.brief,
-				"The learner should aim for the following outcomes in their submission:",
+				"Expected outcomes:",
 				taskDetails.outcomes,
 			].join("\n\n");
 			const openAIResponse = await openai.responses.create({

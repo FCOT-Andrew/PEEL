@@ -1,1 +1,0 @@
-* [ ] Add the option to provide optimised versions of briefs in data.ts
