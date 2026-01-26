@@ -41,6 +41,14 @@ export default {
 		}
 
 		if (
+			path === "/favicon.ico" &&
+			request.method === "GET"
+		) {
+			const file = await Deno.open("./static/favicon.ico");
+			return new Response(file.readable);
+		}
+
+		if (
 			segments[1] === "static" &&
 			request.method === "GET"
 		) {
