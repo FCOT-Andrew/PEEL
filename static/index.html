@@ -110,7 +110,18 @@
 						this.active_requests.push(request)
 						const response = await request
 						if (response.ok) {
-							this.feedback = await response.text()
+							try {
+								const reader = response.body.getReader()
+								const decoder = new TextDecoder()
+								let done = false
+								while (!done) {
+									const chunk = await reader.read()
+									done = chunk.done
+									this.feedback += decoder.decode(chunk.value, { stream: true })
+								}
+							} catch (error) {
+								this.error = "Error: Stream interrupted."
+							}
 						} else {
 							this.error = `Error: ${response.status} ${response.statusText}`
 						}

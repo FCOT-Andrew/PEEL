@@ -89,7 +89,7 @@ export default {
 
 			const apiKey = Deno.env.get("OPENAI_API_KEY");
 			const openai = new OpenAI({ apiKey });
-			const openAIResponse = await openai.responses.create({
+			const stream = await openai.responses.create({
 				model: taskDetails.model,
 				instructions: [
 					taskDetails.persona,
@@ -109,10 +109,25 @@ export default {
 						],
 					},
 				],
+				stream: true,
 			});
 			return new Response(
-				openAIResponse.output_text,
-				{ headers: { "Content-Type": "text/markdown" }},
+				new ReadableStream({
+					async start(controller) {
+						for await (const event of stream) {
+							if (event.type === 'response.output_text.delta') {
+								controller.enqueue(new TextEncoder().encode(event.delta));
+							} else if (event.type === 'response.completed') {
+								controller.close();
+							}
+						}
+					},
+				}),
+				{
+					headers: {
+						"Content-Type": "text/event-stream",
+					},
+				},
 			);
 		}
 		
